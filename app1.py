@@ -16,28 +16,6 @@ def get_db_connection():
 app = Flask(__name__)
 app.secret_key = 'sifra123'
 
-
-conn = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='root',
-    database='evidencija_zaposlenih_u_firmi'
-)
-cursor = conn.cursor()
-# Hešuj lozinku "admin"
-nova_lozinka = generate_password_hash("anapass")
-# Ažuriraj samo korisnika sa ID 2
-cursor.execute("""
-    UPDATE korisnici
-    SET lozinka = %s
-    WHERE korisnik_id = %s
-""", (nova_lozinka, 3))
-conn.commit()
-cursor.close()
-conn.close()
-print("✔ Lozinka za korisnika 'ana' uspešno hešovana.")
-
-
 @app.route('/')
 def home():
     return redirect('/login')
