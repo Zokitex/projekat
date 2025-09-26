@@ -24,18 +24,18 @@ conn = mysql.connector.connect(
     database='evidencija_zaposlenih_u_firmi'
 )
 cursor = conn.cursor()
-# Hešuj lozinku "lazar"
-nova_lozinka = generate_password_hash("lazar")
-# Ažuriraj samo korisnika sa ID 8
+# Hešuj lozinku "admin"
+nova_lozinka = generate_password_hash("anapass")
+# Ažuriraj samo korisnika sa ID 2
 cursor.execute("""
     UPDATE korisnici
     SET lozinka = %s
     WHERE korisnik_id = %s
-""", (nova_lozinka, 8))
+""", (nova_lozinka, 3))
 conn.commit()
 cursor.close()
 conn.close()
-print("✔ Lozinka za korisnika 'lazar' uspešno hešovana.")
+print("✔ Lozinka za korisnika 'ana' uspešno hešovana.")
 
 
 @app.route('/')
