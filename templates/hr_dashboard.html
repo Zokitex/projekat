@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}HR Panel{% endblock %}
+{% block content %}
+
+<h3 class="mb-4">Lista zaposlenih</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Ime i prezime </th>
+                <th>Pozicija</th>
+                <th>Email</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for z in zaposleni %}
+            <tr>
+                <td>{{ z.ime }} {{ z.prezime }}</td>
+                <td>{{ z.pozicija or '-' }}</td>
+                <td>{{ z.email or '-' }}</td>
+                <td class="text-center">
+                    <a href="/izmena-zaposleni/{{ z.zaposleni_id }}" class="btn btn-sm btn-outline-primary me-1" title="Izmeni">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <form method="POST" action="/obrisi-zaposlenog/{{ z.zaposleni_id }}" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Obriši" onclick="return confirm('Da li ste sigurni da želite da obrišete zaposlenog?')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" class="text-center text-muted">Nema zaposlenih u sistemu.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-start gap-2 mt-4">
+    <a href="/novi-zaposleni" class="btn btn-primary">
+        <i class="bi bi-person-plus-fill me-1"></i> Dodaj zaposlenog
+    </a>
+    <a href="/zahtevi-hr" class="btn btn-outline-secondary">
+        <i class="bi bi-calendar-check me-1"></i> Pregled zahteva za odmor
+    </a>
+</div>
+
+{% endblock %}

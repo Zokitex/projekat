@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Dodavanje novog zaposlenog{% endblock %}
+{% block content %}
+
+<div class="card shadow-sm p-4 mb-5 bg-white rounded" style="max-width: 600px; margin: auto;">
+    <h4 class="mb-4 text-center">Dodavanje novog zaposlenog</h4>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="ime" class="form-label">Ime</label>
+            <input type="text" name="ime" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="prezime" class="form-label">Prezime</label>
+            <input type="text" name="prezime" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="pozicija" class="form-label">Pozicija</label>
+            <input type="text" name="pozicija" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="korisnicko_ime" class="form-label">Korisničko ime</label>
+            <input type="text" name="korisnicko_ime" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="lozinka" class="form-label">Lozinka</label>
+            <input type="password" name="lozinka" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="uloga" class="form-label">Uloga</label>
+            <select name="uloga" class="form-select" required>
+                <option value="Zaposleni">Zaposleni</option>
+                <option value="HR">HR</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Sačuvaj</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Zahtevi za odmor{% endblock %}
+{% block content %}
+
+<h3 class="mb-4">Zahtevi za odmor svih zaposlenih</h3>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Zaposleni</th>
+                <th>Pozicija</th>
+                <th>Email</th>
+                <th>Period odmora</th>
+                <th>Razlog</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for z in zahtevi %}
+            <tr data-id="{{z.zahtev_id}}">
+                <td>{{ z.ime }} {{ z.prezime }}</td>
+                <td>{{ z.pozicija }}</td>
+                <td>{{ z.email }}</td>
+                <td>{{ z.datum_od }} — {{ z.datum_do }}</td>
+                <td>{{ z.razlog or '—' }}</td>
+                <td>
+                    {% if z.status == 'Na čekanju' %}
+                        <button class="btn btn-sm btn-success me-1" data-status="Odobreno" onclick="obradiStatus(this)">Odobri</button>
+                        <button class="btn btn-sm btn-danger" data-status="Otkazano" onclick="obradiStatus(this)">Otkazi</button>
+                    {% else %}
+                        <span class="badge {% if z.status == 'Odobreno' %}bg-success{% elif z.status == 'Otkazano' %}bg-danger{% else %}bg-secondary{% endif %}">
+                            {{ z.status }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6" class="text-center text-muted">Nema zahteva za odmor.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function obradiStatus(btn) {
+    const tr = btn.closest('tr');
+    const zahtevId = parseInt(tr.dataset.id); // Dodaj parseInt
+    const noviStatus = btn.dataset.status;
+
+    console.log("Šaljem:", zahtevId, noviStatus); // Dodaj log
+
+    fetch('/azuriraj-status-zahteva', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zahtev_id: zahtevId, status: noviStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.uspesno) {
+            const td = btn.closest('td');
+            td.innerHTML = `<span class="badge ${noviStatus === 'Odobreno' ? 'bg-success' : 'bg-danger'}">${noviStatus}</span>`;
+        } else {
+            alert('Greška: ' + data.poruka);
+        }
+    })
+    .catch(err => {
+        console.error("Greška u fetch:", err);
+    });
+}
+
+
+</script>
+{% endblock %}

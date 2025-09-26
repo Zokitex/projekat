@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Novi zahtev za odmor{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h3 class="text-center mb-4">Podnošenje zahteva za odmor</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="datum_od" class="form-label">Datum početka</label>
+                <input type="date" name="datum_od" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="datum_do" class="form-label">Datum završetka</label>
+                <input type="date" name="datum_do" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="razlog" class="form-label">Razlog odsustva</label>
+                <textarea name="razlog" class="form-control" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Pošalji zahtev</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

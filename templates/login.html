@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Prijava{% endblock %}
+{% block content %}
+
+<body class="login-bg">
+<div class="login-wrapper">
+    <div class="login-card">
+        <img src="{{ url_for('static', filename='img/avatar.jpg') }}" alt="Avatar" class="avatar">
+        <h3>Prijava</h3>
+        <p>Prijavite se da biste upravljali evidencijom</p>
+        <form method="POST" action="/login">
+            <label for="username" class="form-label">Korisničko ime</label>
+            <input type="text" class="form-control" name="username" required>
+
+            <label for="password" class="form-label">Lozinka</label>
+            <input type="password" class="form-control" name="password" required>
+
+            <button type="submit" class="btn btn-login">Prijavi se</button>
+        </form>
+    </div>
+</div>
+</body>
+
+{% endblock %}

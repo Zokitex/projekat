@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap-5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/fontawesome-free-6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+    <title>{% block title %}Evidencija zaposlenih{% endblock %}</title>
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="#">Evidencija</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto">
+            {% if session['uloga'] == 'HR' %}
+                <li class="nav-item"><a class="nav-link" href="/hr">HR Panel</a></li>
+                <li class="nav-item"><a class="nav-link" href="/novi-zaposleni">Dodaj zaposlenog</a></li>
+                <li class="nav-item"><a class="nav-link" href="/zahtevi-hr">Zahtevi za odmor</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto">
+            {% if session['uloga'] == 'Zaposleni' %}
+                <li class="nav-item"><a class="nav-link" href="/novi-zahtev">Zahtevi za odmor</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="/logout">Odjava</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Glavni sadržaj -->
+<div class="container mt-4">
+    {% block content %}
+    <h1 class="text-center">Dobrodošao u sistem evidencije</h1>
+    {% endblock %}
+</div>
+
+<!-- Globalni JS -->
+<script src="/static/bootstrap-5.3.2/js/bootstrap.js"></script>
+<script src="/static/fontawesome-free-6.5.1/js/all.js"></script>
+<script src="/static/jquery-3.7.1.js"></script>
+
+<!-- Lokalni JS iz child template-a -->
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

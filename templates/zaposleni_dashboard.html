@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Moj profil{% endblock %}
+{% block content %}
+
+<h3 class="mb-4">Dobrodošli, {{ zaposleni.ime }} {{ zaposleni.prezime }}</h3>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Vaši podaci</h5>
+        <p><strong>Pozicija:</strong> {{ zaposleni.pozicija }}</p>
+        <p><strong>Email:</strong> {{ zaposleni.email }}</p>
+        <p><strong>Datum zaposlenja:</strong> {{ zaposleni.datum_zaposlenja }}</p>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Prisustvo za danas ({{ today }})</h5>
+
+        <form method="POST" class="row g-3 mb-3">
+            <input type="hidden" name="datum" value="{{ today }}">
+            <div class="col-md-6">
+                <label for="vreme_dolaska" class="form-label">Vreme dolaska</label>
+                <input type="time" name="vreme_dolaska" class="form-control" step="60">
+            </div>
+            <div class="col-md-6">
+                <label for="vreme_odlaska" class="form-label">Vreme odlaska</label>
+                <input type="time" name="vreme_odlaska" class="form-control" step="60">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Sačuvaj prisustvo</button>
+            </div>
+        </form>
+
+        {% if unet_dolazak or unet_odlazak %}
+        <div class="border p-3">
+            <strong>{{ today }}</strong><br>
+            {% if unet_dolazak %}
+                <span class="text-success"><i class="fas fa-sign-in-alt"></i> Dolazak: {{ unet_dolazak }}</span><br>
+            {% endif %}
+            {% if unet_odlazak %}
+                <span class="text-danger"><i class="fas fa-sign-out-alt"></i> Odlazak: {{ unet_odlazak }}</span>
+            {% endif %}
+        </div>
+        {% else %}
+        <p class="text-muted">Još nije uneto prisustvo za danas.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Zahtevi za odmor</h5>
+        <a href="/novi-zahtev" class="btn btn-primary mb-3">Zatraži odmor</a>
+        {% for zahtev in zahtevi %}
+        <div class="border p-2 mb-2">
+            <strong>{{ zahtev.datum_od }} — {{ zahtev.datum_do }}</strong><br>
+            <span>Razlog: {{ zahtev.razlog }}</span><br>
+            <span>Status: {{ zahtev.status }}</span>
+        </div>
+        {% else %}
+        <p class="text-muted">Trenutno nema zahteva.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

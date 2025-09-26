@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Izmena zaposlenog{% endblock %}
+{% block content %}
+
+<h3 class="mb-4">Izmena zaposlenog</h3>
+<form method="POST">
+    <div class="mb-3">
+        <label for="ime" class="form-label">Ime</label>
+        <input type="text" name="ime" class="form-control" value="{{ zaposleni.ime }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="prezime" class="form-label">Prezime</label>
+        <input type="text" name="prezime" class="form-control" value="{{ zaposleni.prezime }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="pozicija" class="form-label">Pozicija</label>
+        <input type="text" name="pozicija" class="form-control" value="{{ zaposleni.pozicija }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" value="{{ zaposleni.email }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Sačuvaj izmene</button>
+</form>
+
+{% endblock %}
